@@ -1,7 +1,18 @@
-import React from 'react';
-import './navbar.css'
+import React, { useEffect, useState }from 'react';
+import './navbar.css';
+let url;
+if (process.env.NODE_ENV === 'development') {
+	url = 'http://localhost:4000/';
+} else {
+	url = '/';
+}
 
-const Navbar = () => {
+const Navbar = (props) => {
+	console.log(localStorage, 'from nav')
+	const handleLogout = () => {
+		localStorage.clear()
+		window.location.href = 'http://localhost:3000/'
+	}
 	return (
 		<nav className='navbar navbar-expand-lg navbar-dark bg-primary'>
 			<a className='navbar-brand' href='/'>
@@ -25,16 +36,26 @@ const Navbar = () => {
 							Home <span className='sr-only'>(current)</span>
 						</a>
 					</li>
-					<li className='nav-item'>
-						<a className='nav-link' href='/register'>
-							Register
+					{localStorage.token ? null :
+						<li className='nav-item'>
+							<a className='nav-link' href='/register'>
+								Register
+							</a>
+						</li>
+					}
+					{localStorage.token ? 
+						<li className='nav-item'>
+						<a className='nav-link' onClick={handleLogout}>
+							Logout
 						</a>
 					</li>
-					<li className='nav-item'>
-						<a className='nav-link' href='login'>
-							Login
-						</a>
-					</li>
+					: <li className='nav-item'>
+					<a className='nav-link' href='login'>
+						Login
+					</a>
+				</li>
+					}
+					
                 </ul>
                 <div className='d-flex flex-row-reverse'>
                     <a className='p-2 mb2' href="https://www.mikebocon.com" target='_blank' rel="noopener noreferrer" >MB2</a>
