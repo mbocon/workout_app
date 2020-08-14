@@ -1,0 +1,38 @@
+.mb2 {
+	color: grey;
+	text-decoration: none !important;
+}
+
+.mb2:hover {
+	color: white !important;
+}
+
+@media (max-width: 575.98px) { 
+    .mb2 {
+        margin-right: auto!important;
+        padding-left: 0em!important;
+    }
+    .nav-link {
+        text-align: left;
+    }
+ }
+
+ @media (min-width: 576px) and (max-width: 767.98px) { 
+    .mb2{
+        margin-right: auto!important;
+        padding-left: 0em!important;
+    }
+    .nav-link {
+        text-align: left;
+    }
+ }
+
+ @media (min-width: 768px) and (max-width: 991.98px) { 
+    .mb2 {
+        margin-right: auto!important;
+        padding-left: 0em!important;
+    }
+    .nav-link {
+        text-align: left;
+    }
+  }
