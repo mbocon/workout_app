@@ -24,7 +24,8 @@ const Home = props => {
 			<Navbar />
 			{localStorage.token ? (
 				<div className='home-page'>
-					<h1>Welcome {user.name}</h1>
+                    <h1>Welcome {user.name}</h1>
+                    
 				</div>
 			) : (
 				<div className='home-page'>
