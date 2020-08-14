@@ -2,4 +2,4 @@
 
 A simple workout app built with the MERN stack. 
 
-[link to App](https://traynr.herokuapp.com/)
+[Link to App](https://traynr.herokuapp.com/)
