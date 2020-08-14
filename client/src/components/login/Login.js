@@ -2,43 +2,71 @@ import React, { useState } from 'react';
 import Navbar from '../navbar/Navbar';
 import './login.css';
 
-const Login = () => {
+let url;
+if (process.env.NODE_ENV === 'development') {
+	url = 'http://localhost:4000/';
+} else {
+	url = '/';
+}
+
+const Login = (props) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [user, setUser] = useState({});
 
-	const handleChange = () => {};
+	const handleChange = e => {
+		if (e.target.id === 'email') setEmail(e.target.value);
+        if (e.target.id === 'password') setPassword(e.target.value);
+        console.log(email, password)
+	};
 
 	const handleSumbit = e => {
 		e.preventDefault();
+		fetch(`${url}api/users/login`, {
+            method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+			},
+			body: JSON.stringify({
+				email: email,
+				password: password,
+			}),
+		})
+			.then(response => response.json())
+			.then(response => {
+				console.log(response, 'is login response');
+                localStorage.token = response.userId.token;
+                localStorage._id = response.userId._id
+				console.log(localStorage, 'from login ');
+			})
+			.then(e => props.history.push('/home'))
+			.catch(err => console.error(err));
 	};
+
 	return (
 		<div className='register'>
 			<Navbar />
 			<h1 className='register-h1'>Login</h1>
 			<form className='register-form' onSubmit={handleSumbit}>
 				<fieldset>
-					<div class='form-group'>
-						<label for='exampleInputEmail1'>Email address</label>
+					<div className='form-group'>
+						<label htmlFor='email'>Email address</label>
 						<input
 							type='email'
-							class='form-control'
-							id='exampleInputEmail1'
+							className='form-control'
+							id='email'
 							aria-describedby='emailHelp'
 							placeholder='Enter email'
 							onChange={handleChange}
 						/>
 					</div>
-					<div class='form-group'>
-						<label for='exampleInputPassword1'>Password</label>
-						<input
-							type='password'
-							class='form-control'
-							id='exampleInputPassword1'
-							placeholder='Password'
-							onChange={handleChange}
-						/>
+					<div className='form-group'>
+						<label htmlFor='password'>Password</label>
+						<input type='password' className='form-control' id='password' placeholder='Password' onChange={handleChange} />
 					</div>
 				</fieldset>
+				<button className='btn btn-success'>Submit</button>
 			</form>
 		</div>
 	);

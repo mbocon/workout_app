@@ -2,14 +2,46 @@ import React, { useState } from 'react';
 import Navbar from '../navbar/Navbar';
 import './register.css';
 
-const Register = () => {
+let url;
+if (process.env.NODE_ENV === 'development') {
+	url = 'http://localhost:4000/';
+} else {
+	url = '/';
+}
+
+const Register = (props) => {
+	console.log(props, 'on reg')
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [name, setName] = useState('');
 
-	const handleChange = () => {};
+	const handleChange = e => {
+		if (e.target.id === 'name') setName(e.target.value)
+		if (e.target.id === 'email') setEmail(e.target.value);
+		if (e.target.id === 'password') setPassword(e.target.value);
+ 		console.log(email, password, name)
+	};
 
 	const handleSumbit = e => {
 		e.preventDefault();
+		fetch(`${url}api/users/register`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+			},
+			body: JSON.stringify({
+				name: name,
+				email: email,
+				password: password,
+			}),
+		})
+			.then(resp => resp.json())
+			.then(data => {
+				console.log(data, 'from reg res')
+			})
+			.then(props.history.push('/login'))
+			.catch(err => console.error(err, 'is error'));
 	};
 	return (
 		<div className='register'>
@@ -17,31 +49,41 @@ const Register = () => {
 			<h1 className='register-h1'>Registration</h1>
 			<form className='register-form' onSubmit={handleSumbit}>
 				<fieldset>
-					<div class='form-group'>
-						<label for='exampleInputEmail1'>Email address</label>
+					<div className='form-group'>
+					<label htmlFor='name'>Username</label>
+						<input
+							type='name'
+							className='form-control'
+							id='name'
+							aria-describedby='nameHelp'
+							placeholder='Enter name'
+							onChange={handleChange}
+						/>
+						<label htmlFor='email'>Email address</label>
 						<input
 							type='email'
-							class='form-control'
-							id='exampleInputEmail1'
+							className='form-control'
+							id='email'
 							aria-describedby='emailHelp'
 							placeholder='Enter email'
 							onChange={handleChange}
 						/>
-						<small id='emailHelp' class='form-text text-muted'>
+						<small id='emailHelp' className='form-text text-muted'>
 							We'll never share your email with anyone else.
 						</small>
 					</div>
-					<div class='form-group'>
-						<label for='exampleInputPassword1'>Password</label>
+					<div className='form-group'>
+						<label htmlFor='password'>Password</label>
 						<input
 							type='password'
-							class='form-control'
-							id='exampleInputPassword1'
+							className='form-control'
+							id='password'
 							placeholder='Password'
 							onChange={handleChange}
 						/>
 					</div>
 				</fieldset>
+				<button className='btn btn-success'>Submit</button>
 			</form>
 		</div>
 	);

@@ -17,6 +17,16 @@ router.get('/getusers', (req,res)=>{
     });
 })
 
+router.get('/:id', (req,res)=>{
+    User.findById(req.params.id, function(err, user) {
+        if(err) {
+            res.send(err);
+            return;
+        }
+        res.json(user);
+    });
+})
+
 router.get("/auth", auth, (req, res) => {
     res.status(200).json({
         _id: req.user._id,
@@ -41,14 +51,16 @@ router.post("/register", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
-    User.findOne({ email: req.body.email }, (err, user) => {
+    console.log(req.body, 'is the req login')
+    User.findOne( { email: req.body.email }, (err, user) => {
         if (!user)
             return res.json({
                 loginSuccess: false,
-                message: "Auth failed, email not found"
+                message: "Email not found"
             });
 
         user.comparePassword(req.body.password, (err, isMatch) => {
+            console.log(req.body)
             if (!isMatch)
                 return res.json({ loginSuccess: false, message: "Wrong password" });
 
@@ -67,7 +79,7 @@ router.post("/login", (req, res) => {
 });
 
 router.get("/logout", auth, (req, res) => {
-    User.findOneAndUpdate({ _id: req.user._id }, { token: "", tokenExp: "" }, (err, doc) => {
+    User.findOneAndUpdate({ _id: req.user._id }, { token: "", tokenExp: "", user: '' }, (err, doc) => {
         if (err) return res.json({ success: false, err });
         return res.status(200).send({
             success: true
