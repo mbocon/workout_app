@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use('/api/users', require('./routes/users'));
-// app.use('/api/workouts', require('./routes/workouts'));
+app.use('/api/exercises', require('./routes/exercises'));
 
 
 // Serve static assets if in production

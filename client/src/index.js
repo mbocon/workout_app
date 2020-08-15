@@ -4,6 +4,7 @@ import App from "./components/app/App";
 import Register from './components/register/Register';
 import Login from './components/login/Login';
 import Home from './components/home/Home';
+import Create from './components/create/Create';
 import { createBrowserHistory } from 'history';
 import { Switch, Route, Router } from 'react-router';
 
@@ -23,6 +24,11 @@ const routes = [
         component: Home,
         name: 'UserHome-Page'
     },
+    {
+      path: '/create',
+      component: Create,
+      name: 'Create-Page'
+  },
     {
         path: '/',
         component: App,

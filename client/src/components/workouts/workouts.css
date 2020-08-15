@@ -1,0 +1,36 @@
+.workout-list {
+    list-style: none;
+    width: 100%;
+    padding-left: 0em;
+}
+
+@media (max-width: 575.98px) {
+    .workouts {
+        width: 100%!important;
+        margin-top: 1em;
+    }
+	.workout-list {
+        margin-top: 1em;
+        width: 100%;
+	}
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .workouts {
+        width: 100%!important;
+    }
+    .workout-list {
+        margin-top: 1em;
+        width: 100%;
+	}
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .workouts {
+        width: 100%!important;
+    }
+    .workout-list {
+        margin-top: 1em;
+        width: 100%;
+	}
+}
