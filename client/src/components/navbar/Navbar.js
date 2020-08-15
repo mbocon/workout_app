@@ -1,14 +1,14 @@
-import React, { useEffect, useState }from 'react';
+import React from 'react';
 import './navbar.css';
-let url;
-if (process.env.NODE_ENV === 'development') {
-	url = 'http://localhost:4000/';
-} else {
-	url = '/';
-}
+// let url;
+// if (process.env.NODE_ENV === 'development') {
+// 	url = 'http://localhost:4000/';
+// } else {
+// 	url = '/';
+// }
 
 const Navbar = (props) => {
-	console.log(localStorage, 'from nav')
+	// console.log(localStorage, 'from nav')
 	const handleLogout = () => {
 		localStorage.clear()
 		window.location.href = 'http://localhost:3000/'
@@ -45,9 +45,9 @@ const Navbar = (props) => {
 					}
 					{localStorage.token ? 
 						<li className='nav-item'>
-						<a className='nav-link' onClick={handleLogout}>
+						<button className='nav-link logout btn logout-btn' onClick={handleLogout}>
 							Logout
-						</a>
+						</button>
 					</li>
 					: <li className='nav-item'>
 					<a className='nav-link' href='login'>

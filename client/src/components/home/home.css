@@ -1,4 +1,60 @@
+
 .home-page {
 	text-align: center;
-	margin-top: 1em;
+    margin-top: 1em;
 }
+
+.home-h2 {
+    border-bottom: 1px solid rgb(0, 255, 0);
+    width: fit-content;
+    margin: 1em auto;
+
+}
+
+.home-main {
+    display: flex;
+    padding: 2em;    
+    /* background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../../images/snatch.jpg');
+    background-size: cover;
+    background-attachment: fixed; */
+}
+
+.new-workout {
+    width: 100%;
+}
+
+.workouts {
+    width: 100%;
+}
+
+
+@media (max-width: 575.98px) { 
+    .home-main {
+        flex-direction: column;
+    }
+    .home-h2,
+    .create-h3 {
+        font-size: 1.5em;
+    }
+    .new-workout,
+    .workouts {
+        width: 100%;
+    }
+ }
+
+ @media (min-width: 576px) and (max-width: 767.98px) { 
+    .home-main {
+        flex-direction: column;
+    }
+    .home-h2 {
+        font-size: 1.5em;
+    }
+    .new-workout {
+        width: 100%;
+        margin-bottom: 2em;
+    }
+ }
+
+ @media (min-width: 768px) and (max-width: 991.98px) { 
+    
+  }

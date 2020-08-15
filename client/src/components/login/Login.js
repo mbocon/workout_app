@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'development') {
 const Login = (props) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [user, setUser] = useState({});
+	// const [user, setUser] = useState({});
 
 	const handleChange = e => {
 		if (e.target.id === 'email') setEmail(e.target.value);

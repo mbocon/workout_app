@@ -1,0 +1,68 @@
+.workout-form {
+    text-align: left;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+}
+
+.left {
+    width: 30%;
+    padding: 1em 2em
+}
+
+.right {
+    width: 65%;
+    margin-left: 2em;
+    padding: 1em;
+    height: 75vh;
+}
+
+.create-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.create-h3 {
+    text-align: center;
+}
+
+.create-btn {
+    width: 50%;
+    font-size: .75em;
+}
+
+@media (max-width: 575.98px) { 
+    .workout-form {
+        font-size: .75em;
+        flex-direction: column;
+    }
+    .create-btn {
+        width: 50%;
+        margin-top: 1em;
+        font-size: .95em;
+    }
+    .create-form > input {
+        margin-bottom: 0em;
+    }
+    .left,
+    .right {
+        width: 80%;
+        margin: 0 auto;
+    }
+    .left {
+        padding: 0;
+        margin-bottom: 1em;
+    }
+ }
+
+ @media (min-width: 576px) and (max-width: 767.98px) { 
+    .create-btn {
+       width: 75%; 
+    }
+ }
+
+ @media (min-width: 768px) and (max-width: 991.98px) { 
+    .create-btn {
+        width: 50%;
+    }
+  }

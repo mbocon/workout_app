@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../navbar/Navbar';
+// import CreateWorkout from '../createWorkout/CreateWorkout';
+import Workouts from '../workouts/Workouts';
 import './home.css';
 
 let url;
@@ -17,15 +19,25 @@ const Home = props => {
 			.then(response => response.json())
 			.then(json => setUser(json));
 	}, []);
+	console.log(user, 'from home');
 
-	console.log(user);
 	return (
 		<div className='home'>
 			<Navbar />
 			{localStorage.token ? (
 				<div className='home-page'>
-                    <h1>Welcome {user.name}</h1>
-                    
+					<h2 className='home-h2'>Welcome {user.name}</h2>
+					<div className='home-main'>
+						<div className='new-workout'>
+							<button className='btn btn-success' onClick={() => props.history.push('/create')}>
+								Create new workout
+							</button>
+						</div>
+
+						<div className='workouts'>
+							<Workouts />
+						</div>
+					</div>
 				</div>
 			) : (
 				<div className='home-page'>
