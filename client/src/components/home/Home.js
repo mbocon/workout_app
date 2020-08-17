@@ -13,13 +13,33 @@ if (process.env.NODE_ENV === 'development') {
 
 const Home = props => {
 	const [user, setUser] = useState({});
+	const [workouts, setWorkouts] = useState([]);
+	const [createdWorkout, setCreatedWorkout] = useState(false);
+
+	useEffect(() => {
+		if(localStorage.created === 'true') {
+			setCreatedWorkout(true)
+		} else {
+			setCreatedWorkout(false)
+			localStorage.setItem('created', true)
+		}
+		if (createdWorkout === true) {
+			fetch(`${url}api/workouts/getworkouts`)
+				.then(response => response.json())
+				.then(json => setWorkouts(json))
+				.then(setCreatedWorkout(false))
+				.then(localStorage.removeItem('created'))
+		}
+	}, [createdWorkout, localStorage.created]);
+
+	// console.log(localStorage, 'is local on home')
 
 	useEffect(() => {
 		fetch(`${url}api/users/${localStorage._id}`)
 			.then(response => response.json())
 			.then(json => setUser(json));
 	}, []);
-	console.log(user, 'from home');
+	// console.log(user, 'from home');
 
 	return (
 		<div className='home'>
@@ -35,7 +55,7 @@ const Home = props => {
 						</div>
 
 						<div className='workouts'>
-							<Workouts />
+							<Workouts workouts={workouts} props={props}/>
 						</div>
 					</div>
 				</div>

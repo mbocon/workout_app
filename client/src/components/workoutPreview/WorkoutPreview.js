@@ -7,8 +7,22 @@ if (process.env.NODE_ENV === 'development') {
 	url = '/';
 }
 
-const WorkoutPreview = ({ exercises, getNewData, setGetNewData }) => {
+const WorkoutPreview = ({ exercises, getNewData, setGetNewData, props }) => {
 	const [workout, setWorkout] = useState([]);
+	const [user, setUser] = useState({});
+	const [name, setName] = useState('');
+
+	const handleChange = e => {
+		if (e.target.id === 'name') setName(e.target.value);
+	};
+
+	console.log(props.props, 'is props on workout prev');
+
+	useEffect(() => {
+		fetch(`${url}api/users/${localStorage._id}`)
+			.then(response => response.json())
+			.then(json => setUser(json));
+	}, []);
 
 	useEffect(() => {
 		setWorkout(exercises);
@@ -17,10 +31,31 @@ const WorkoutPreview = ({ exercises, getNewData, setGetNewData }) => {
 
 	const createWorkout = e => {
 		e.preventDefault();
-		// create workout model in server/models
-		// create workout route
 		// after creation, go to home page and render workouts in the workouts component
 		// working on update/delete of workout
+		let data = {
+			user: user._id,
+			plan: exercises,
+			title: name,
+		};
+		fetch(`${url}api/workouts/create`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+			},
+			body: JSON.stringify(data),
+		})
+			.then(resp => resp.json())
+			.then(data => {
+                console.log(data, 'from workout res');
+                localStorage.setItem('created', true)
+            })
+            .then(exercises.forEach(exercise =>{
+                deleteExercise(e, exercise)
+            }))
+			.then(props.props.history.push('/home'))
+			.catch(err => console.error(err, 'is the error'));
 	};
 
 	const deleteExercise = (e, exercise) => {
@@ -38,7 +73,7 @@ const WorkoutPreview = ({ exercises, getNewData, setGetNewData }) => {
 			})
 			.then(setGetNewData(!getNewData))
 			.catch(err => console.error(err, 'is error'));
-	};
+    };
 
 	return (
 		<div className='workout-preview'>
@@ -77,8 +112,10 @@ const WorkoutPreview = ({ exercises, getNewData, setGetNewData }) => {
 				})}
 			{exercises.length === 0 ? null : (
 				<div className='create-workout'>
-					<form onSubmit={() => createWorkout}>
-						<button className='btn btn-success create-workout-btn'>Save this Workout</button>
+					<form className='create-workout-form'>
+						<label htmlFor='name'>Name Workout</label>
+						<input type='text' id='name' name='name' onChange={handleChange} required='true'/>
+						<button onClick={(e)=> createWorkout(e)} className='btn btn-success create-workout-btn'>Save this Workout</button>
 					</form>
 				</div>
 			)}
