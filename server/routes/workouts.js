@@ -29,16 +29,16 @@ router.post("/create", (req, res) => {
     });
 });
 
-// router.delete('/:userId/:postId', (req,res) => {
-//     Exercise.findById(req.params.postId, function(err, post) {
-//         if(post.user.toString() === req.params.userId){
-//             post.remove()
-//             res.json('Delete success')
-//         } else{
-//             res.json('User unauthorized')
-//         }
-//     })
-// });
+router.delete('/:userId/:id', (req,res) => {
+    Workout.findById(req.params.id, function(err, post) {
+        if(post.user.toString() === req.params.userId){
+            post.remove()
+            res.json('Delete success')
+        } else{
+            res.json('User unauthorized')
+        }
+    })
+});
 
 
 // router.put('/:id', (req, res) => {
