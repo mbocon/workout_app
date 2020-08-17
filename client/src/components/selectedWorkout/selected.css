@@ -1,0 +1,10 @@
+.selected {
+    text-align: center;
+}
+
+.selected-ul {
+    list-style: none;
+    text-align: left;
+    width: 75%;
+    margin: 0 auto;
+}
