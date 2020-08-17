@@ -37,7 +37,8 @@ const Login = (props) => {
 			.then(response => {
 				console.log(response, 'is login response');
                 localStorage.token = response.userId.token;
-                localStorage._id = response.userId._id
+				localStorage._id = response.userId._id;
+				localStorage.setItem('created', true)
 				console.log(localStorage, 'from login ');
 			})
 			.then(e => props.history.push('/home'))

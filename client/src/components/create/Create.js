@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../navbar/Navbar';
-import CreateWorkout from '../createWorkout/CreateWorkout';
+import AddExercise from '../addExercise/AddExercise';
 import './create.css';
 
 let url;
@@ -28,7 +28,7 @@ const Create = props => {
 					<h2 className='home-h2'>Get after it {user.name}</h2>
 					<div className='create-main'>
 						<div className='new-workout'>
-							<CreateWorkout />
+							<AddExercise props={props}/>
                         </div>
 					</div>
 				</div>

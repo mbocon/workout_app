@@ -26,6 +26,7 @@ app.use(cookieParser());
 
 app.use('/api/users', require('./routes/users'));
 app.use('/api/exercises', require('./routes/exercises'));
+app.use('/api/workouts', require('./routes/workouts'));
 
 
 // Serve static assets if in production

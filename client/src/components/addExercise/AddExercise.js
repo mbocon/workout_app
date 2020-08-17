@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './createworkout.css';
+import './addExercise.css';
 import WorkoutPreview from '../workoutPreview/WorkoutPreview';
 let url;
 if (process.env.NODE_ENV === 'development') {
@@ -8,15 +8,16 @@ if (process.env.NODE_ENV === 'development') {
 	url = '/';
 }
 
-const CreateWorkout = () => {
-	let [activity, setActivity] = useState('');
-	let [distance, setDistance] = useState('');
-	let [sets, setSets] = useState('');
-	let [reps, setReps] = useState('');
-	let [weight, setWeight] = useState('');
-	let [exercises, setExercises] = useState([]);
-	let [user, setUser] = useState({});
-	let [getNewData, setGetNewData] = useState(false);
+const AddExercise = props => {
+	console.log(props, 'are props on add exer');
+	const [activity, setActivity] = useState('');
+	const [distance, setDistance] = useState('');
+	const [sets, setSets] = useState('');
+	const [reps, setReps] = useState('');
+	const [weight, setWeight] = useState('');
+	const [exercises, setExercises] = useState([]);
+	const [user, setUser] = useState({});
+	const [getNewData, setGetNewData] = useState(false);
 
 	useEffect(() => {
 		fetch(`${url}api/users/${localStorage._id}`)
@@ -27,9 +28,9 @@ const CreateWorkout = () => {
 	useEffect(() => {
 		if (getNewData) {
 			fetch(`${url}api/exercises/getexercises`)
-			.then(response => response.json())
-			.then(json => setExercises(json))
-			.then(setGetNewData(!getNewData))
+				.then(response => response.json())
+				.then(json => setExercises(json))
+				.then(setGetNewData(!getNewData));
 		}
 	}, [getNewData]);
 
@@ -43,9 +44,9 @@ const CreateWorkout = () => {
 		setSets('');
 		setReps('');
 		setWeight('');
-	}
+	};
 
-	const AddExercise = e => {
+	const addExercise = e => {
 		e.preventDefault();
 		let form = e.target;
 		let data = {
@@ -68,11 +69,11 @@ const CreateWorkout = () => {
 			.then(data => {
 				// console.log(data, 'from exercise res');
 				setExercises(data);
-				setGetNewData(!getNewData)
+				setGetNewData(!getNewData);
+				form.reset();
+				clearData();
 			})
-			.then(form.reset())
-			.then(clearData())
-			.catch(err => console.error(err, 'is error'));
+			.catch(err => console.error(err, 'is the error'));
 	};
 
 	const handleChange = e => {
@@ -87,7 +88,7 @@ const CreateWorkout = () => {
 		<div className='workout-form'>
 			<div className='left'>
 				<h5 className='create-h5'>Add Exercise</h5>
-				<form className='create-form' onSubmit={e => AddExercise(e)}>
+				<form className='create-form' onSubmit={e => addExercise(e)}>
 					<label htmlFor='activity'>Activity</label>
 					<input type='text' name='activity' id='activity' onChange={handleChange} />
 					<label htmlFor='distance'>Distance</label>
@@ -105,10 +106,10 @@ const CreateWorkout = () => {
 			</div>
 			<div className='right'>
 				<h3 className='create-h3'>Workout preview</h3>
-				<WorkoutPreview exercises={exercises} getNewData={getNewData} setGetNewData={setGetNewData} />
+				<WorkoutPreview exercises={exercises} getNewData={getNewData} setGetNewData={setGetNewData} props={props} />
 			</div>
 		</div>
 	);
 };
 
-export default CreateWorkout;
+export default AddExercise;
