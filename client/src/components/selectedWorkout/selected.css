@@ -1,10 +1,45 @@
 .selected {
-    text-align: center;
+	text-align: center;
 }
 
 .selected-ul {
-    list-style: none;
-    text-align: left;
-    width: 75%;
-    margin: 0 auto;
+	list-style: none;
+	text-align: center;
+	margin: 0 auto;
+	padding-left: 0em;
+	padding: 1em;
+	overflow: scroll;
+    margin-top: 2em;
+    height: 70vh;
+}
+
+.selected-ul li {
+	font-size: 1.25em;
+	padding: 1em;
+}
+
+.selected-btn {
+	padding: 2px 10px;
+	margin: 0.5em 1em;
+}
+
+.line-through {
+	text-decoration: line-through;
+	color: rgba(255, 119, 0, 0.5);
+}
+
+.no-line {
+	text-decoration: none;
+}
+
+.selected-span {
+    text-transform: capitalize;
+    font-style: italic;
+    font-weight: 700;
+}
+
+.workout-complete-btn-area {
+	position: fixed;
+	bottom: 10px;
+	width: 100%;
 }
