@@ -23,8 +23,17 @@
     width: 100%;
 }
 
+.new-workout button {
+    margin: 1em;
+}
+
 .workouts {
     width: 100%;
+}
+
+.workout-list li button {
+    font-size: .9em;
+    margin: 1em;
 }
 
 
